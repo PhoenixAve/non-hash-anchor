@@ -18,16 +18,8 @@ const outputConfig = ['umd', 'esm'].map(format => ({
   name: 'Anchor',
 }))
 
-/**
- * @type {import('rollup').RollupOptions}
- */
-const config = {
-  input: 'src/index.ts',
-  output: outputConfig,
-  watch: {
-    include: 'src/**'
-  },
-  plugins: [
+const getPlugins = () => {
+  const plugins = [
     json(),
     typescript({
       exclude: 'node_modules/**',
@@ -41,16 +33,31 @@ const config = {
       exclude: 'node_modules/**'
     }),
     terser(),
-    serve({
-      openPage: '/demo/index.html',
-      contentBase: '', //服务器启动的文件夹，默认是项目根目录，需要在该文件下创建index.html
-      port: 8020 //端口号，默认10001
-    }),
-    livereload({
-      watch: 'lib',
-      delay: 1000
-    })
   ]
+  if (process.env.NODE_ENV !== 'production') {
+    plugins.push(serve({
+        openPage: '/demo/index.html',
+        contentBase: '', //服务器启动的文件夹，默认是项目根目录，需要在该文件下创建index.html
+        port: 8020 //端口号，默认10001
+      }),
+      livereload({
+        watch: 'lib',
+        delay: 1000
+      }))
+  }
+  return plugins
+}
+
+/**
+ * @type {import('rollup').RollupOptions}
+ */
+const config = {
+  input: 'src/index.ts',
+  output: outputConfig,
+  watch: {
+    include: 'src/**'
+  },
+  plugins: getPlugins(),
 }
 
 export default config
