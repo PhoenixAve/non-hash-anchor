@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Body作为滚动容器</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+    }
+
+    body {
+      padding: 10px 100px;
+    }
+
+    .tabs {
+      position: fixed;
+      top: 10px;
+      left: 640px;
+      border-left: 4px solid #f1f1f1;
+    }
+
+    .tab-item {
+      padding-left: 20px;
+      width: 100px;
+      height: 2em;
+      cursor: pointer;
+      margin-left: -4px;
+      border-left: 4px solid transparent;
+    }
+
+    .tab-item.active {
+      border-left-color: orange;
+    }
+
+    .container {
+      width: 500px;
+      padding: 20px;
+      background-color: greenyellow;
+    }
+
+
+    .anchor-container {
+      padding: 10px;
+      margin-top: 20px;
+      background-color: rgba(255, 255, 255, 0.6);
+      ;
+    }
+
+    .anchor-item {
+      height: 800px;
+      font-size: 20px;
+      text-align: center;
+      font-weight: bold;
+      color: #222;
+      padding: 10px;
+      margin: 20px 0;
+      border-top: 4px solid orangered;
+      background-color: rgba(255, 255, 255, 0.6);
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .extra-content {
+      padding: 10px;
+      margin: 20px 0;
+      background-color: rgba(255, 255, 255, 0.6);
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="tabs">
+    <div class="tab-item anchor1">anchor1</div>
+    <div class="tab-item anchor2">anchor2</div>
+    <div class="tab-item anchor3">anchor3</div>
+  </div>
+  <div class="container">
+    <h2 class="text-center">scroll-container</h2>
+    <div class="top-content extra-content">
+      <h2 class="text-center">top content</h2>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio, repellendus soluta debitis ad dicta accusamus obcaecati odio nesciunt quia deserunt doloremque ipsum atque asperiores et assumenda odit, voluptates neque magnam! Explicabo ex, sequi deleniti veniam earum nesciunt eos reprehenderit eius distinctio ipsum eaque officiis alias laudantium labore culpa optio quis ipsam quidem. Voluptates quas, quidem vero architecto quae eaque sint quasi a. Veritatis odio fugiat non autem ipsa voluptatibus, recusandae voluptatem error, in sapiente aliquid consequatur sit vitae ullam iure neque voluptatum porro eos maxime similique minima eveniet? Ipsum, maiores commodi? Nostrum architecto fugiat officiis ab, vitae eaque expedita sit?
+    </div>
+    <div class="anchor-container">
+      <h2 class="text-center">main content</h2>
+      <h3 class="anchor-item" data-anchor="anchor1">anchor1</h3>
+      <h3 class="anchor-item" data-anchor="anchor2">anchor2</h3>
+      <h3 class="anchor-item" data-anchor="anchor3">anchor3</h3>
+    </div>
+    <div class="bottom-content extra-content">
+      <h2 class="text-center">bottom content</h2>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio, repellendus soluta debitis ad dicta accusamus obcaecati odio nesciunt quia deserunt doloremque ipsum atque asperiores et assumenda odit, voluptates neque magnam! Explicabo ex, sequi deleniti veniam earum nesciunt eos reprehenderit eius distinctio ipsum eaque officiis alias laudantium labore culpa optio quis ipsam quidem. Voluptates quas, quidem vero architecto quae eaque sint quasi a. Veritatis odio fugiat non autem ipsa voluptatibus, recusandae voluptatem error, in sapiente aliquid consequatur sit vitae ullam iure neque voluptatum porro eos maxime similique minima eveniet? Ipsum, maiores commodi? Nostrum architecto fugiat officiis ab, vitae eaque expedita sit?
+    </div>
+  </div>
+  <script src="../lib/index.js"></script>
+  <script>
+    var anchor = new Anchor(document.querySelector('.anchor-container'), {
+      // 滚动完成后距离页面顶端的距离
+      offsetTop: 20,
+      // scrollContainer: document.querySelector('.scroll-container'),
+      onChange(anchor) {
+        // TODO...eg: 设置tab的选中状态
+        console.log(Date.now(), anchor)
+        document.querySelectorAll('.tab-item').forEach(el => el.classList.remove('active'))
+        document.querySelector(`.${anchor}`).classList.add('active')
+      },
+      onExposure(anchors) {
+        // TODO...eg: 获取数据
+        console.log(anchors)
+      },
+    });
+    var tabs = document.querySelectorAll('.tab-item');
+    tabs.forEach(function (item) {
+      item.addEventListener('click', function () {
+        anchor.scrollTo(item.innerText)
+      })
+    });
+
+  </script>
+</body>
+
+</html>
