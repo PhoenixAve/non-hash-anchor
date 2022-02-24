@@ -1,6 +1,6 @@
 {
   "name": "non-hash-anchor",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "非hash模式的锚点功能实现，可以检测滚动过程中元素是否处于曝光状态，还可以通过点击锚点滚动到制定元素位置",
   "main": "lib/index.js",
   "module": "lib/index.es.js",
@@ -20,7 +20,7 @@
     "build": "rollup --config --environment NODE_ENV:production",
     "release": "yarn build && npm publish"
   },
-  "dependencies": {
+  "peerDependencies": {
     "@types/lodash-es": "^4.17.4",
     "lodash-es": "^4.17.21",
     "resize-observer-polyfill": "^1.5.1"
@@ -28,9 +28,13 @@
   "devDependencies": {
     "@babel/core": "^7.15.5",
     "@babel/preset-env": "^7.15.6",
+    "@types/lodash-es": "^4.17.5",
+    "lodash-es": "^4.17.21",
+    "resize-observer-polyfill": "^1.5.1",
     "rollup": "^2.56.3",
     "rollup-plugin-babel": "^4.4.0",
-    "rollup-plugin-cleandir": "^1.0.0",
+    "rollup-plugin-delete": "^2.0.0",
+    "rollup-plugin-filesize": "^9.1.1",
     "rollup-plugin-json": "^4.0.0",
     "rollup-plugin-livereload": "^2.0.5",
     "rollup-plugin-node-resolve": "^5.2.0",

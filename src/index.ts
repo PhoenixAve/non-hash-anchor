@@ -216,8 +216,8 @@ export default class Anchor {
    */
   private isActive(position: AnchorPosition): boolean {
     return (
-      position.top < this.scrollTop + this.offsetTop + this.activeOffsetTop &&
-      position.bottom > this.scrollTop - this.scrollOffsetTop
+      position.top <= this.scrollTop + this.offsetTop + this.activeOffsetTop &&
+      position.bottom >= this.scrollTop - this.scrollOffsetTop
     );
   }
   /**
